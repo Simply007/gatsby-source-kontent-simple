@@ -10,6 +10,17 @@
   "bugs": {
     "url": "https://github.com/Simply007/gatsby-source-kontent-simple/issues"
   },
+  "scripts": {
+    "build": "tsc",
+    "format": "prettier --write \"*.ts\" \"*.js\"",
+    "lint": "eslint src/**/*",
+    "test": "jest --passWithNoTests",
+    "watch": "tsc -w",
+    "prepare": "cross-env NODE_ENV=production npm run build",
+    "prepublishOnly": "npm test && npm run lint",
+    "preversion": "npm run lint",
+    "version": "npm run format && git add -A src"
+  },
   "dependencies": {
     "@kentico/kontent-delivery": "^8.2.0",
     "@types/fs-extra": "^8.0.1",
@@ -46,17 +57,6 @@
     "url": "https://github.com/Simply007/gatsby-source-kontent-simple.git"
   },
   "main": "gatsby-node.js",
-  "scripts": {
-    "build": "tsc",
-    "format": "prettier --write \"*.ts\" \"*.js\"",
-    "lint": "eslint src/**/*",
-    "test": "jest --passWithNoTests",
-    "watch": "tsc -w",
-    "prepare": "cross-env NODE_ENV=production npm run build",
-    "prepublishOnly": "npm test && npm run lint",
-    "preversion": "npm run lint",
-    "version": "npm run format && git add -A src"
-  },
   "publishConfig": {
     "access": "public"
   }
