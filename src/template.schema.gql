@@ -1,0 +1,109 @@
+# All __UPPERCASE__  wildcards will be replaced by the configuration
+
+interface __KONTENT_ITEM_INTERFACE__ @nodeInterface {
+  id: ID!
+  system: __KONTENT_ITEM_SYSTEM_TYPE__!
+  # elements: type is defined dynamically
+  preferred_language: String!
+}
+
+interface __KONTENT_ITEM_ELEMENT_INTERFACE__ {
+  name: String!
+  type: String!
+}
+
+type __KONTENT_ITEM_SYSTEM_TYPE__ {
+  codename: String!
+  id: String!
+  language: String!
+  last_modified: Date! @dateformat
+  name: String!
+  type: String!
+}
+
+type __KONTENT_ITEM_TEXT_ELEMENT__ implements __KONTENT_ITEM_ELEMENT_INTERFACE__ {
+  name: String!
+  type: String!
+  value: String
+}
+
+type __KONTENT_ITEM_RICH_TEXT_ELEMENT__ implements __KONTENT_ITEM_ELEMENT_INTERFACE__ {
+  name: String!
+  type: String!
+  value: String
+  modular_content: [__KONTENT_ITEM_INTERFACE__] @link(by: "system.codename")
+  # TODO - images, links, modular content - maybe transfer from object to array
+}
+
+type __KONTENT_ITEM_NUMBER_ELEMENT__ implements __KONTENT_ITEM_ELEMENT_INTERFACE__ {
+  name: String!
+  type: String!
+  value: Float
+}
+
+type __KONTENT_ITEM_MULTIPLE_CHOICE_ELEMENT__ implements __KONTENT_ITEM_ELEMENT_INTERFACE__ {
+  name: String!
+  type: String!
+  value: [SimpleKontentElementMultipleChoiceValue]
+}
+
+type __KONTENT_ITEM_DATE_TIME_ELEMENT__ implements __KONTENT_ITEM_ELEMENT_INTERFACE__ {
+  name: String!
+  type: String!
+  value: Date @dateformat
+}
+
+type __KONTENT_ITEM_ASSET_ELEMENT__ implements __KONTENT_ITEM_ELEMENT_INTERFACE__ {
+  name: String!
+  type: String!
+  value: [SimpleKontentElementAssetValue]
+}
+
+type __KONTENT_ITEM_MODULAR_CONTENT_ELEMENT__ implements __KONTENT_ITEM_ELEMENT_INTERFACE__ {
+  name: String!
+  type: String!
+  value: [__KONTENT_ITEM_INTERFACE__] @link(by: "system.codename") # TODO note about multi-lingual links
+}
+
+type __KONTENT_ITEM_CUSTOM_ELEMENT_ELEMENT__ implements __KONTENT_ITEM_ELEMENT_INTERFACE__ {
+  name: String!
+  type: String!
+  value: String
+}
+
+type __KONTENT_ITEM_TAXONOMY_ELEMENT__ implements __KONTENT_ITEM_ELEMENT_INTERFACE__ {
+  name: String!
+  type: String!
+  taxonomy_group: String!
+  value: [SimpleKontentElementTaxonomyValue]
+}
+
+type __KONTENT_ITEM_URL_SLUG_ELEMENT__ implements __KONTENT_ITEM_ELEMENT_INTERFACE__ {
+  name: String!
+  type: String!
+  value: String
+}
+
+type SimpleKontentElementMultipleChoiceValue {
+  codename: String!
+  name: String!
+}
+
+type SimpleKontentElementAssetValue {
+  name: String!
+  description: String
+  type: String!
+  size: Int!
+  url: String!
+  width: Int
+  height: Int
+}
+
+type SimpleKontentElementTaxonomyValue {
+  name: String!
+  codename: String!
+}
+
+# type RichTextImage {
+#   image_id: ID
+# }

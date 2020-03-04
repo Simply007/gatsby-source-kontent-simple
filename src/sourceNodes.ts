@@ -1,12 +1,9 @@
 import { SourceNodesArgs } from "gatsby";
 import { CustomPluginOptions } from "./types";
-import axios from "axios";
-
-const KontentDeliveryProductionDomain = "https://deliver.kontent.ai";
-const continuationHeaderName: string = 'x-continuation';
+import {loadAllKontentItems} from "./client";
+import { getKontentItemNodeStringForId, getKontentItemNodeTypeName } from "./naming";
 
 const sourceNodes = async (api: SourceNodesArgs, options: CustomPluginOptions) => {
-  debugger;
   for (const language of options.languageCodenames) {
     const kontentItems = await loadKontentItemsFromLanguage(options.projectId, language);
     addPreferredLanguageProperty(kontentItems, language);
@@ -17,26 +14,8 @@ const sourceNodes = async (api: SourceNodesArgs, options: CustomPluginOptions) =
   }
 };
 
-const loadKontentItemsFromLanguage = async (projectId: string, language: string) => {
-  let continuationToken: string = "";
-  let items = [];
-  do {
-    const headers = {
-      [continuationHeaderName]: continuationToken
-    }
-    const response = await axios.get(
-      `${KontentDeliveryProductionDomain}/${projectId}/items-feed?language=${language}`,
-      {
-        headers
-      }
-    );
-    items.push(...response.data.items);
-    continuationToken = response.headers[continuationHeaderName];
-  } while (continuationToken);
-
-
-  return items;
-}
+const loadKontentItemsFromLanguage = async (projectId: string, language: string) =>
+ await loadAllKontentItems(projectId, language);
 
 const addPreferredLanguageProperty = (items: any[], language: string) => {
   for (const item of items) {
@@ -47,25 +26,20 @@ const addPreferredLanguageProperty = (items: any[], language: string) => {
 
 
 const getKontentItemLanguageVariantArtifact = (api: SourceNodesArgs, kontentItem: any) => {
-  const nodeId = api.createNodeId(`simple-kontent-item-${kontentItem.preferred_language}-${kontentItem.system.id}`)
+  const nodeIdString = getKontentItemNodeStringForId(kontentItem.system.id, kontentItem.preferred_language);
   const nodeContent = JSON.stringify(kontentItem)
   const nodeData = Object.assign({}, kontentItem, {
-    id: nodeId,
+    id: api.createNodeId(nodeIdString),
     parent: null,
     children: [],
     internal: {
-      type: `SimpleKontentItem${convertSnakeCaseToPascalCase(kontentItem.system.type)}`,
+      type: getKontentItemNodeTypeName(kontentItem.system.type),
       content: nodeContent,
       contentDigest: api.createContentDigest(kontentItem),
     },
   })
   return nodeData;
 };
-
-const convertSnakeCaseToPascalCase = (input: string) => input
-  .split('_')
-  .map((str: string) => str.slice(0, 1).toUpperCase() + str.slice(1, str.length))
-  .join('');
 
 export {
   sourceNodes
