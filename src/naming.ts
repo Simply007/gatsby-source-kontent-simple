@@ -21,9 +21,6 @@ const getKontentItemInterfaceName = (config: PluginNamingConfiguration = default
 const getKontentItemSystemElementTypeName = (config: PluginNamingConfiguration = defaultPluginNamingConfiguration): string =>
   `${config.prefix}${CONNECTOR}${SYSTEM_IDENTIFIER}`;
 
-const getKontentItemElementInterfaceName = (config: PluginNamingConfiguration = defaultPluginNamingConfiguration): string =>
-  `${config.prefix}${CONNECTOR}${ELEMENT_IDENTIFIER}`;
-
 const getKontentItemElementTypeNameByType = (type: string, config: PluginNamingConfiguration = defaultPluginNamingConfiguration): string =>
   `${config.prefix}${CONNECTOR}${type}${CONNECTOR}${ELEMENT_IDENTIFIER}`;
 
@@ -34,7 +31,6 @@ const getSchemaNamingConfiguration = (template: string, config: PluginNamingConf
   template
     .replace(/__KONTENT_ITEM_INTERFACE__/g, getKontentItemInterfaceName(config))
     .replace(/__KONTENT_ITEM_SYSTEM_TYPE__/g, getKontentItemSystemElementTypeName(config))
-    .replace(/__KONTENT_ITEM_ELEMENT_INTERFACE__/g, getKontentItemElementInterfaceName(config))
     // elements
     .replace(/__KONTENT_ITEM_TEXT_ELEMENT__/g, getKontentItemElementTypeNameByType('text', config))
     .replace(/__KONTENT_ITEM_RICH_TEXT_ELEMENT__/g, getKontentItemElementTypeNameByType('rich_text', config))

@@ -10,8 +10,6 @@ import {
   getKontentItemInterfaceName,
   getKontentItemElementTypeNameByType
 } from "./naming";
-import { stringify } from "querystring";
-
 
 const createSchemaCustomization = async (api: CustomCreateSchemaCustomizationArgs, pluginConfig: CustomPluginOptions) => {
   const baseSchemaTypesTemplate = fs.readFileSync(path.join(__dirname, "template.schema.gql"), "utf8");
@@ -49,7 +47,7 @@ const createSchemaCustomization = async (api: CustomCreateSchemaCustomizationArg
       name: typeName,
       fields: {
         system: `${systemElementsTypeName}!`,
-        elements: kontentItemElementsTypeName, // TODO union types
+        elements: kontentItemElementsTypeName,
         preferred_language: 'String!',
       },
       interfaces: ['Node', typeInterfaceName],

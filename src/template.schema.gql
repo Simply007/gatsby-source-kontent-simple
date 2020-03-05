@@ -1,15 +1,13 @@
-# All __UPPERCASE__  wildcards will be replaced by the configuration
+# All __UPPER_CASE__  wildcards will be replaced by the configuration
 
 interface __KONTENT_ITEM_INTERFACE__ @nodeInterface {
   id: ID!
   system: __KONTENT_ITEM_SYSTEM_TYPE__!
-  # elements: type is defined dynamically
+  # elements: type is defined dynamically 
+  #  - union type just require to use fragment when querying 
+  #  - no benefits: type is not propagated to filter
+  #  - union types are not supported for querying in Gatsby
   preferred_language: String!
-}
-
-interface __KONTENT_ITEM_ELEMENT_INTERFACE__ {
-  name: String!
-  type: String!
 }
 
 type __KONTENT_ITEM_SYSTEM_TYPE__ {
@@ -21,13 +19,13 @@ type __KONTENT_ITEM_SYSTEM_TYPE__ {
   type: String!
 }
 
-type __KONTENT_ITEM_TEXT_ELEMENT__ implements __KONTENT_ITEM_ELEMENT_INTERFACE__ {
+type __KONTENT_ITEM_TEXT_ELEMENT__ {
   name: String!
   type: String!
   value: String
 }
 
-type __KONTENT_ITEM_RICH_TEXT_ELEMENT__ implements __KONTENT_ITEM_ELEMENT_INTERFACE__ {
+type __KONTENT_ITEM_RICH_TEXT_ELEMENT__ {
   name: String!
   type: String!
   value: String
@@ -35,50 +33,50 @@ type __KONTENT_ITEM_RICH_TEXT_ELEMENT__ implements __KONTENT_ITEM_ELEMENT_INTERF
   # TODO - images, links, modular content - maybe transfer from object to array
 }
 
-type __KONTENT_ITEM_NUMBER_ELEMENT__ implements __KONTENT_ITEM_ELEMENT_INTERFACE__ {
+type __KONTENT_ITEM_NUMBER_ELEMENT__ {
   name: String!
   type: String!
   value: Float
 }
 
-type __KONTENT_ITEM_MULTIPLE_CHOICE_ELEMENT__ implements __KONTENT_ITEM_ELEMENT_INTERFACE__ {
+type __KONTENT_ITEM_MULTIPLE_CHOICE_ELEMENT__ {
   name: String!
   type: String!
   value: [SimpleKontentElementMultipleChoiceValue]
 }
 
-type __KONTENT_ITEM_DATE_TIME_ELEMENT__ implements __KONTENT_ITEM_ELEMENT_INTERFACE__ {
+type __KONTENT_ITEM_DATE_TIME_ELEMENT__ {
   name: String!
   type: String!
   value: Date @dateformat
 }
 
-type __KONTENT_ITEM_ASSET_ELEMENT__ implements __KONTENT_ITEM_ELEMENT_INTERFACE__ {
+type __KONTENT_ITEM_ASSET_ELEMENT__ {
   name: String!
   type: String!
   value: [SimpleKontentElementAssetValue]
 }
 
-type __KONTENT_ITEM_MODULAR_CONTENT_ELEMENT__ implements __KONTENT_ITEM_ELEMENT_INTERFACE__ {
+type __KONTENT_ITEM_MODULAR_CONTENT_ELEMENT__ {
   name: String!
   type: String!
   value: [__KONTENT_ITEM_INTERFACE__] @link(by: "system.codename") # TODO note about multi-lingual links
 }
 
-type __KONTENT_ITEM_CUSTOM_ELEMENT_ELEMENT__ implements __KONTENT_ITEM_ELEMENT_INTERFACE__ {
+type __KONTENT_ITEM_CUSTOM_ELEMENT_ELEMENT__ {
   name: String!
   type: String!
   value: String
 }
 
-type __KONTENT_ITEM_TAXONOMY_ELEMENT__ implements __KONTENT_ITEM_ELEMENT_INTERFACE__ {
+type __KONTENT_ITEM_TAXONOMY_ELEMENT__ {
   name: String!
   type: String!
   taxonomy_group: String!
   value: [SimpleKontentElementTaxonomyValue]
 }
 
-type __KONTENT_ITEM_URL_SLUG_ELEMENT__ implements __KONTENT_ITEM_ELEMENT_INTERFACE__ {
+type __KONTENT_ITEM_URL_SLUG_ELEMENT__ {
   name: String!
   type: String!
   value: String
