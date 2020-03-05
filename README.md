@@ -16,6 +16,14 @@
 
 > If there are other tutorials, docs, and learning resources that are necessary or helpful to someone using this plugin, please link to those here.
 
+### Delivery API alternations
+
+Some of the data from Kontent Delivery API requires to be altered, or extended in orderto be usable in Gatsby. There is a list of them with its description.
+
+#### Preferred language
+
+Besides of `system.language` every Kontent item node contains the property `preferred_language` to distinguish which language version it represents. Using this property, it is the easy to distinguish whether the language fallback is used. When `preferred_language` is not the same as `system.language`, Kontent item was not translated to `preferred_language` and the delivery API returned fallback language (`system.language`).
+
 ## How to install
 
 > Please include installation instructions here.
