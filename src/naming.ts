@@ -9,8 +9,8 @@ const defaultPluginNamingConfiguration: PluginNamingConfiguration = {
   prefix: `simple${CONNECTOR}kontent${CONNECTOR}item`,
 };
 
-const getKontentItemNodeStringForId = (id: string, preferred_language: string, config: PluginNamingConfiguration = defaultPluginNamingConfiguration): string =>
-  `${config.prefix}${CONNECTOR}${preferred_language}${CONNECTOR}${id}`;
+const getKontentItemNodeStringForId = (id: string, preferredLanguage: string, config: PluginNamingConfiguration = defaultPluginNamingConfiguration): string =>
+  `${config.prefix}${CONNECTOR}${preferredLanguage}${CONNECTOR}${id}`;
 
 const getKontentItemNodeTypeName = (type: string, config: PluginNamingConfiguration = defaultPluginNamingConfiguration): string =>
   `${config.prefix}${CONNECTOR}${type}`
@@ -27,7 +27,7 @@ const getKontentItemElementTypeNameByType = (type: string, config: PluginNamingC
 const getKontentItemElementsSchemaTypeName = (type: string, config: PluginNamingConfiguration = defaultPluginNamingConfiguration): string =>
   `${config.prefix}${CONNECTOR}${type}${CONNECTOR}${MULTI_ELEMENT_IDENTIFIER}`;
 
-const getSchemaNamingConfiguration = (template: string, config: PluginNamingConfiguration = defaultPluginNamingConfiguration) =>
+const getSchemaNamingConfiguration = (template: string, config: PluginNamingConfiguration = defaultPluginNamingConfiguration): string =>
   template
     .replace(/__KONTENT_ITEM_INTERFACE__/g, getKontentItemInterfaceName(config))
     .replace(/__KONTENT_ITEM_SYSTEM_TYPE__/g, getKontentItemSystemElementTypeName(config))

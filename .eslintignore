@@ -2,3 +2,4 @@
 fragments.js
 gatsby-*.js
 src/**/*.js
+**/*.gql

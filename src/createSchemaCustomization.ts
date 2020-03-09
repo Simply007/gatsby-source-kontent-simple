@@ -11,7 +11,7 @@ import {
   getKontentItemElementTypeNameByType
 } from "./naming";
 
-const createSchemaCustomization = async (api: CustomCreateSchemaCustomizationArgs, pluginConfig: CustomPluginOptions) => {
+const createSchemaCustomization = async (api: CustomCreateSchemaCustomizationArgs, pluginConfig: CustomPluginOptions): Promise<void> => {
   const baseSchemaTypesTemplate = fs.readFileSync(path.join(__dirname, "template.schema.gql"), "utf8");
   const baseSchemaTypes = getSchemaNamingConfiguration(baseSchemaTypesTemplate);
   api.actions.createTypes(baseSchemaTypes);
@@ -20,9 +20,9 @@ const createSchemaCustomization = async (api: CustomCreateSchemaCustomizationArg
 
   for (const type of types) {
 
-    const elementFields: any = {};
+    const elementFields: { [key: string]: { type: string } } = {};
     for (const elementKey in type.elements) {
-      if (type.elements.hasOwnProperty(elementKey)) {
+      if (Object.prototype.hasOwnProperty.call(type.elements, elementKey)) {
         const element = type.elements[elementKey];
         const elementType = getKontentItemElementTypeNameByType(element.type);
         if (elementType !== '') {
@@ -48,7 +48,7 @@ const createSchemaCustomization = async (api: CustomCreateSchemaCustomizationArg
       fields: {
         system: `${systemElementsTypeName}!`,
         elements: kontentItemElementsTypeName,
-        preferred_language: 'String!',
+        ["preferred_language"]: 'String!',
       },
       interfaces: ['Node', typeInterfaceName],
       infer: false,

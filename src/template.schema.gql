@@ -3,8 +3,8 @@
 interface __KONTENT_ITEM_INTERFACE__ @nodeInterface {
   id: ID!
   system: __KONTENT_ITEM_SYSTEM_TYPE__!
-  # elements: type is defined dynamically 
-  #  - union type just require to use fragment when querying 
+  # elements: type is defined dynamically
+  #  - union type just require to use fragment when querying
   #  - no benefits: type is not propagated to filter
   #  - union types are not supported for querying in Gatsby
   preferred_language: String!
@@ -30,7 +30,8 @@ type __KONTENT_ITEM_RICH_TEXT_ELEMENT__ {
   type: String!
   value: String
   modular_content: [__KONTENT_ITEM_INTERFACE__] @link(by: "system.codename")
-  # TODO - images, links, modular content - maybe transfer from object to array
+  images: [SimpleKontentElementRichTextImage]
+  links: [SimpleKontentElementRichTextLink]
 }
 
 type __KONTENT_ITEM_NUMBER_ELEMENT__ {
@@ -102,6 +103,17 @@ type SimpleKontentElementTaxonomyValue {
   codename: String!
 }
 
-# type RichTextImage {
-#   image_id: ID
-# }
+type SimpleKontentElementRichTextImage {
+  image_id: String!
+  url: String!
+  description: String
+  height: Int!
+  width: Int!
+}
+
+type SimpleKontentElementRichTextLink {
+  link_id: String!
+  codename: String!
+  type: String!
+  urlSlug: String!
+}
