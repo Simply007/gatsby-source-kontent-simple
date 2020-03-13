@@ -22,8 +22,8 @@ interface KontentItemElement {
   name: string;
   type: string;
   value: string | number | string[];
-  images: { [key: string]: RichTextElementImage } | RichTextElementImage[] ;
-  links: { [key: string]: RichTextElementLink } |  RichTextElementLink[];
+  images: { [key: string]: RichTextElementImage } | RichTextElementImage[];
+  links: { [key: string]: RichTextElementLink } | RichTextElementLink[];
   modular_content: string[];
 }
 

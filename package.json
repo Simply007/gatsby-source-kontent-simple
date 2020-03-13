@@ -1,7 +1,7 @@
 {
   "name": "@simply007org/gatsby-source-kontent-simple",
   "description": "Loads Kentico Kontent data from REST Delivery API",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": {
     "name": "Ondřej Chrastina",
     "email": "chrastina.ondra@gmail.com",
@@ -27,7 +27,8 @@
     "axios": "^0.19.2",
     "fs-extra": "^8.1.0",
     "gatsby-plugin-sharp": "^2.3.13",
-    "gatsby-source-filesystem": "^2.1.46"
+    "gatsby-source-filesystem": "^2.1.46",
+    "lodash": "^4.17.15"
   },
   "devDependencies": {
     "@types/jest": "24.9.0",
@@ -37,10 +38,13 @@
     "cross-env": "6.0.3",
     "eslint": "6.8.0",
     "gatsby": "2.18.25",
-    "jest": "24.9.0",
+    "jest": "^24.9.0",
+    "jest-ts-auto-mock": "^1.0.11",
     "prettier": "1.19.1",
-    "ts-jest": "24.3.0",
-    "typescript": "3.7.5"
+    "ts-auto-mock": "^1.5.7",
+    "ts-jest": "^24.3.0",
+    "ttypescript": "^1.5.10",
+    "typescript": "^3.7.5"
   },
   "homepage": "https://github.com/Simply007/gatsby-source-kontent-simple#readme",
   "keywords": [
